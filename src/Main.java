@@ -36,19 +36,40 @@ public class Main {
 
     public static void task3(List<String> text){
         System.out.println("Задача 3");
-        System.out.println(new HashSet<String>(text));
+        System.out.println(new HashSet<>(text));
     }
 
     public static void task4(List<String> text){
         System.out.println("Задача 4");
         Map<String, Integer> countRepeatString = new HashMap<>();
-        for(String iter : text){
-            if (countRepeatString.get(iter) == null) {
+
+        // используем getOrDefault
+        for(String iter : text) {
+            countRepeatString.put(iter, countRepeatString.getOrDefault(iter, 0) + 1);
+        }
+        System.out.println(countRepeatString); // количество повторений
+        System.out.println(countRepeatString.keySet()); // уникальные слова
+
+         /*   if (countRepeatString.get(iter) == null) {
                 countRepeatString.put(iter, 1);
             } else {
                 countRepeatString.put(iter, countRepeatString.get(iter) + 1);
+            }*/
+
+        //убираем неповторяющиеся
+        for(Map.Entry <String, Integer> entry : countRepeatString.entrySet()){
+            if(entry.getValue() > 1){
+                System.out.println(entry); // только повторяющиеся
             }
         }
-        System.out.println(countRepeatString);
+        // решение через frequency
+        System.out.println("решение через frequency");
+        Set<String> set = new HashSet<>(text);
+        System.out.println(set);
+        for(String iter : set) {
+            if(Collections.frequency(text, iter) > 1) {
+                System.out.println(iter + " : " + Collections.frequency(text, iter));
+            }
+        }
     }
 }
